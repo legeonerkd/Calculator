@@ -1,19 +1,20 @@
-from flask import Flask, request, abort
+import abc
 
-class Figure:
+
+class Figure(abc.ABC):
     def __init__(self) -> None:
         pass
 
+    @abc.abstractmethod
+    def get_area(self):
+        pass
 
 class Square(Figure):
     def __init__(self,side):
         self.side = side
 
     def get_area(self):
-        if self.side is None:
-            return 'Incorrect arguments', 400 
-        area = self.side ** 2
-        return area
+        return self.side ** 2
 
 
 class Triangle(Figure):
@@ -22,20 +23,14 @@ class Triangle(Figure):
         self.height = height
 
     def get_area(self):
-        if self.basis is None or self.height is None:
-            return 'Incorrect arguments', 400
-        area = self.height * self.height
-        return area
+        return (self.height * self.height) / 2
     
 class Rectangle(Figure):
     def __init__(self,width,length):
         self.width = width
         self.length = length
 
-    def get_area(self):
-        if self.width is None or self.length is None:
-            return 'Incorrect arguments', 400        
-        area = self.width * self.length
-        return area
+    def get_area(self):       
+        return self.width * self.length
     
             
