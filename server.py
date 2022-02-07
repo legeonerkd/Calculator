@@ -1,7 +1,8 @@
 from calendar import c
 from random import choice
 from flask import Flask, request, abort
-
+from figures import Figure, Square, Triangle, Rectangle
+import logging
 
 app = Flask(__name__, static_url_path='/static')
 
@@ -18,32 +19,26 @@ summ = 0
 def get_sqarea():
     form = request.args.get('form', type=str)
     if form == 'rectangle':
-        a = request.args.get('a', type=float)
-        b = request.args.get('b', type=float)
-
-        if a is None or b is None:
+        if request.args.get('a', type=float) is None and request.args.get('b', type=float) is None:
             return 'Incorrect arguments', 400
-
-        area = a * b 
+        rectangle = Rectangle(width=request.args.get('a', type=float), length=request.args.get('b', type=float))
+        area = rectangle.get_area()
+    
     elif form == 'triangle':
-        h = request.args.get('h', type=float)
-        b = request.args.get('b', type=float)
-        area = h * b
-    if request.args.get('form', type=str) == 'square':
-
-        if h is None or b is None:
-            return 'Incorrect arguments', 400
-
-        area = (h * b) / 2
+        if request.args.get('b', type=float) is None and request.args.get('h', type=float) is None:
+            return 'Incorrect arguments', 400 
+        triangle = Triangle(basis=request.args.get('b', type=float), height=request.args.get('h', type=float))
+        area = triangle.get_area()
+    
     elif form == 'square':
-        a = request.args.get('a', type=float)
-
-        if a is None:
-            return 'Incorrect argument', 400
-
-        area = a ** 2
+        if request.args.get('a', type=float) is None:
+            return 'Incorrect arguments', 400 
+        square = Square(side=request.args.get('a', type=float))
+        area = square.get_area()
+    
     else:
-        return 'Incorrect form', 400
+        return "incorrect form", 400
+    
 
     global summ
     summ += area
