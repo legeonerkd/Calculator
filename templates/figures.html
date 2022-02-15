@@ -1,0 +1,58 @@
+<html>
+    <head>
+        <title>Calculator</title>
+        <style>
+            body {
+                background-color: RGB(61, 133, 198);
+            }
+
+            p {
+                background-color: #fff2cc;
+            }
+        </style>
+        <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    </head>
+    <body>
+        <p>Choose figures from list</p>
+        <form action='/area'>
+            <input type="radio" id="triangle" name="form" value="triangle">
+            <label for="triangle">Triangle</label><br>
+            <input type="radio" id="rectangle" name="form" value="rectangle">
+            <label for="rectangle">Rectangle</label><br>
+            <input type="radio" id="square" name="form" value="square">
+            <label for="square">Square</label><br>
+            
+            <label for="a">Input a:</label>
+            <input type="number" id="a" name="a"><br>
+            <label for="b">Input b:</label>
+            <input type="number" id="b" name="b"><br>
+            <label for="h">Input h:</label>
+            <input type="number" id="h" name="h"><br>
+
+
+            <input type="submit" value="Calculate">
+          </form>
+
+          <button id="sum">Sum of areas</button>
+          <button id="clear">Clear</button>
+
+          <script>
+            $("#sum").click(function() {
+                fetch('/sum')
+                .then(res => res.text())
+                .then(res => alert(res));
+            });    
+            
+            $("#clear").click(function() {
+                fetch('/sum', {
+                    method: 'DELETE',
+                })
+                .then(res => res.text())
+                .then(res => alert(res));
+            });
+
+            // jQuery
+        </script>
+        
+    </body>
+</html>
