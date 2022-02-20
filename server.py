@@ -4,7 +4,6 @@ from flask import Flask, request, abort, render_template
 from figures import Figure, Square, Triangle, Rectangle
 import logging
 
-app = Flask(__name__, static_url_path='/static')
 
 # status codes
 # 2xx - successful, 200 - OK, 201 - Created
@@ -13,7 +12,6 @@ app = Flask(__name__, static_url_path='/static')
 # 5xx - server error, 500 - Internal Server Error
 
 # 10 + 5 + 16 = 31
-summ = 0
 
 # query - ?a=1&b=2 GET / DELETE, не имеют тела
 # x-www-form-urlencoded - передача в body, содержимое a=1&b=2 POST, PUT
@@ -45,6 +43,11 @@ summ = 0
 # red green blue - от 0 до 255
 
 # ДЗ  - сделать форму на сайте для взаимодействия с калькулятором
+
+
+app = Flask(__name__, static_url_path='/static')
+
+summ = 0
 
 @app.route('/')
 def index():
