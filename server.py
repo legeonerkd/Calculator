@@ -1,10 +1,9 @@
 from calendar import c
 from random import choice
-from flask import Flask, request, abort
+from flask import Flask, request, abort, render_template
 from figures import Figure, Square, Triangle, Rectangle
 import logging
 
-app = Flask(__name__, static_url_path='/static')
 
 # status codes
 # 2xx - successful, 200 - OK, 201 - Created
@@ -13,7 +12,50 @@ app = Flask(__name__, static_url_path='/static')
 # 5xx - server error, 500 - Internal Server Error
 
 # 10 + 5 + 16 = 31
+
+# query - ?a=1&b=2 GET / DELETE, не имеют тела
+# x-www-form-urlencoded - передача в body, содержимое a=1&b=2 POST, PUT
+# multipart/form-data - передача файлов
+# json в body 
+# JSON - JavaScript Object Notation
+# {
+#     "field": "value",
+#     "field2": 25,
+#     "field3": -25.04,
+#     "field4": true,
+#     "field5": null,
+#     "field6": {
+#         "field7": "aaa"
+#     },
+#     "field8":  [{"a": 2}, {"b": 3}]
+# }
+
+# GET - получить информацию 
+# POST - добавить новую информацию
+# PUT - изменить старую информацию
+# DELETE - удалить что-либо
+
+# HTML + CSS + JavaScript
+# HTML - структура документа
+# CSS - каскадная таблица стилей, оформление документа, стилизация
+# JS - программирование, анимация, игры, рисование, любое программное взаимодействие с сервером
+
+# red green blue - от 0 до 255
+
+# ДЗ  - сделать форму на сайте для взаимодействия с калькулятором
+
+
+app = Flask(__name__, static_url_path='/static')
+
 summ = 0
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+@app.route('/figures')
+def about():
+    return render_template('figures.html')
 
 @app.route("/area")
 def get_sqarea():
@@ -56,7 +98,7 @@ def delete_sum():
     global summ
     summ = 0
 
-    return ''
+    return 'Sum has been cleared'
 
 
 if __name__ == "__main__":
